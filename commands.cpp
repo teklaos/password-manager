@@ -19,7 +19,7 @@ void searchPasswords(const vector<string> &vec) {
 
     for (const string &entry: vec)
         if (entry.find(parameter) != string::npos)
-            println("{}", entry);
+            cout << entry << endl;
 }
 
 /// \brief Types the sorted copy of the vector of entries
@@ -88,7 +88,7 @@ void sortPasswords(vector<string> vec) {
         }
     }
     for (const string &entry: vec)
-        println("{}", entry);
+        cout << entry << endl;
 }
 
 /// \brief Adds password to the source file
@@ -183,8 +183,8 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
         }
     }
     println("Enter the category the password will be assigned to:");
-    for (string existingCategory: categories)
-        println("{}", existingCategory);
+    for (const string &existingCategory: categories)
+        cout << existingCategory << endl;
     string category;
     for (bool noSuchCategory = true; noSuchCategory;) {
         getline(cin, category);
@@ -203,7 +203,7 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
 
     string separator = " - ";
     string entry = name + separator + password + separator + category;
-    println("Password \"{}\" was successfully added.", entry);
+    cout << "Password \"" << entry << "\" was successfully added.";
     vec.push_back(entry);
     string encoded_entry;
     for (char c: entry)
@@ -298,8 +298,8 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
         }
         else if (!strcasecmp(change.c_str(), "Category")) {
             println("Enter new category:");
-            for (string existingCategory: categories)
-                println("{}", existingCategory);
+            for (const string &existingCategory: categories)
+                cout << existingCategory << endl;
             string newCategory;
             for (bool noSuchCategory = true; noSuchCategory;) {
                 getline(cin, newCategory);
@@ -325,7 +325,7 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
                     str += newCategory;
                 }
             }
-            println("Category was successfully changed to \"{}\".", newCategory);
+            cout << "Category was successfully changed to \"" << newCategory << "\".";
         } else {
             println("There is no such parameter.");
             invalidInput = true;
