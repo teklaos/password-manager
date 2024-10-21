@@ -141,44 +141,51 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
                         passwordLength = length;
                         invalidInput = false;
                     }
+                    else
+                        println("Invalid length of the password.");
                 }
-                else
+                else {
+                    println("Invalid input.");
                     isNumber = true;
+                }
             }
             println("Do you want to include uppercase letters? [Y/N]");
             for (bool invalidInput = true; invalidInput;) {
+                invalidInput = false;
                 getline(cin, in);
                 if (cancelInput(in))
                     return;
 
-                if (!strcasecmp(in.c_str(), "Y")) {
+                if (!strcasecmp(in.c_str(), "Y"))
                     includeUpper = true;
-                    invalidInput = false;
-                }
-                else if (!strcasecmp(in.c_str(), "N")) {
+                else if (!strcasecmp(in.c_str(), "N"))
                     includeUpper = false;
-                    invalidInput = false;
+                else {
+                    println("Invalid input.");
+                    invalidInput = true;
                 }
             }
             println("Do you want to include special characters? [Y/N]");
             for (bool invalidInput = true; invalidInput;) {
+                invalidInput = false;
                 getline(cin, in);
                 if (cancelInput(in))
                     return;
 
-                if (!strcasecmp(in.c_str(), "Y")) {
+                if (!strcasecmp(in.c_str(), "Y"))
                     includeSpecial = true;
-                    invalidInput = false;
-                }
-                else if (!strcasecmp(in.c_str(), "N")) {
+                else if (!strcasecmp(in.c_str(), "N"))
                     includeSpecial = false;
-                    invalidInput = false;
+                else {
+                    println("Invalid input.");
+                    invalidInput = true;
                 }
             }
             password = getRandomPassword(passwordLength, includeUpper, includeSpecial);
             println("Created password: \"{}\".", password);
         }
         else {
+            println("Invalid input.");
             invalidAnswer = true;
         }
     }
@@ -326,7 +333,8 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
                 }
             }
             cout << "Category was successfully changed to \"" << newCategory << "\"." << endl;
-        } else {
+        }
+        else {
             println("There is no such parameter.");
             invalidInput = true;
         }
@@ -462,7 +470,8 @@ void removeCategory(const int &key, const string &filePath, vector<string> &vec,
         if (inCategory == category) {
             toDelete.push_back(password);
             return true;
-        } else
+        }
+        else
             return false;
     });
     for (string pass: toDelete)

@@ -8,7 +8,7 @@ using fmt::print, fmt::println;
 
 int main() {
     string password;
-    println("Enter a password:");
+    println("Enter the password for the file:");
     getline(cin, password);
 
     int key = 0;
@@ -47,7 +47,7 @@ int main() {
         else if (!strcasecmp(input.c_str(), "Add pass"))
             addPassword(key, filePath, vec, passwords, categories);
 
-        else if(!strcasecmp(input.c_str(), "Edit pass"))
+        else if (!strcasecmp(input.c_str(), "Edit pass"))
             editPassword(key, filePath, vec, passwords, categories);
 
         else if (!strcasecmp(input.c_str(), "Rm pass"))
