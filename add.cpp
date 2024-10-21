@@ -124,11 +124,17 @@ string getRandomPassword(const int &passwordLength, const bool &includeUpper, co
                 character = lower[rand() % lower.length()];
                 break;
             case 2:
-                if (!includeUpper) continue;
+                if (!includeUpper) {
+                    i--;
+                    continue;
+                }
                 character = upper[rand() % upper.length()];
                 break;
             default:
-                if (!includeSpecial) continue;
+                if (!includeSpecial) {
+                    i--;
+                    continue;
+                }
                 character = special[rand() % special.length()];
                 break;
         }

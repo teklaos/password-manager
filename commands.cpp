@@ -203,7 +203,7 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
 
     string separator = " - ";
     string entry = name + separator + password + separator + category;
-    cout << "Password \"" << entry << "\" was successfully added.";
+    cout << "Password \"" << entry << "\" was successfully added." << endl;
     vec.push_back(entry);
     string encoded_entry;
     for (char c: entry)
@@ -325,7 +325,7 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
                     str += newCategory;
                 }
             }
-            cout << "Category was successfully changed to \"" << newCategory << "\".";
+            cout << "Category was successfully changed to \"" << newCategory << "\"." << endl;
         } else {
             println("There is no such parameter.");
             invalidInput = true;
