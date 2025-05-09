@@ -1,11 +1,11 @@
-#include <iostream>
 #include <fmt/ranges.h>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
 #include "header.h"
 
-using namespace std;
 using fmt::println;
 
 /// \brief Searches for the passwords among the vector of entries

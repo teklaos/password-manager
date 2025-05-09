@@ -1,7 +1,7 @@
+#include <fmt/ranges.h>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fmt/ranges.h>
 #include "header.h"
 
 using fmt::print, fmt::println;
@@ -31,7 +31,7 @@ int main() {
     vector<string> categories = getCategoriesVector(vec);
 
     string input;
-    println("Enter a command:");
+    println("Enter a command (enter 'help' for a list of commands):");
     for (bool isRunning = true; isRunning;) {
         print("->");
         getline(cin, input);

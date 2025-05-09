@@ -1,7 +1,8 @@
 #include <fmt/ranges.h>
+#include <algorithm>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 #include "header.h"
 
 using fmt::println;
