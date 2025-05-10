@@ -9,15 +9,15 @@ using fmt::println;
 
 /// \brief Prints all the available commands
 void printList() {
-    println("Search pass - returns passwords that contain specific parameters.");
-    println("Sort pass - returns a sorted list of all passwords.");
-    println("Add pass - adds a new password to the source file.");
-    println("Edit pass - allows editing of data in an existing password.");
-    println("Rm pass - removes a specific password in the source file.");
-    println("Add category - adds a new category.");
-    println("Rm category - removes the category along with all the passwords assigned to that category.");
-    println("Cancel - cancels current operation.");
-    println("Exit - exits the program.");
+    println("'search pass' - returns passwords that contain a specific searching parameter.");
+    println("'sort pass' - returns a sorted list of passwords.");
+    println("'add pass' - adds an entry.");
+    println("'edit pass' - edits data in an existing entry.");
+    println("'rm pass' - removes an entry.");
+    println("'add ctg' - adds a category.");
+    println("'rm ctg' - removes a category along with all the passwords assigned to that category.");
+    println("'cancel' - cancels current operation.");
+    println("'exit' - exits the program.");
 }
 
 /// \brief Prints a timestamp of an attempt to decrypt the file in the source file
@@ -149,7 +149,7 @@ string getRandomPassword(const int &passwordLength, const bool &includeUpper, co
 /// \return True if input = "Cancel"
 bool cancelInput(const string &str) {
     if (!strcasecmp(str.c_str(), "Cancel")) {
-        fmt::println("Action is cancelled.");
+        fmt::println("Cancelled.");
         return true;
     }
     return false;

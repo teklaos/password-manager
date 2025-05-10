@@ -12,7 +12,7 @@ using fmt::println;
 /// \param vec Vector of entries
 void searchPasswords(const vector<string> &vec) {
     string parameter;
-    println("Searching by:");
+    println("Searching by (enter a parameter to search by):");
     getline(cin, parameter);
     if (cancelInput(parameter))
         return;
@@ -26,16 +26,16 @@ void searchPasswords(const vector<string> &vec) {
 /// \param vec Vector of entries
 void sortPasswords(vector<string> vec) {
     string parameter;
-    println("Sorting by [N/C/N&C]:");
+    println("Sorting by [n/c/nc] (name/category/name and category):");
     for (bool invalidParameter = true; invalidParameter;) {
         invalidParameter = false;
         getline(cin, parameter);
         if (cancelInput(parameter))
             return;
 
-        if (!strcasecmp(parameter.c_str(), "N"))
+        if (!strcasecmp(parameter.c_str(), "n"))
             sort(vec.begin(), vec.end());
-        else if (!strcasecmp(parameter.c_str(), "C")) {
+        else if (!strcasecmp(parameter.c_str(), "c")) {
             sort(vec.begin(), vec.end(), [](const string &str1, const string &str2) -> bool {
                 string separator = " - ";
                 size_t first, second;
@@ -54,7 +54,7 @@ void sortPasswords(vector<string> vec) {
                     return true;
             });
         }
-        else if (!strcasecmp(parameter.c_str(), "N&C")) {
+        else if (!strcasecmp(parameter.c_str(), "nc")) {
             sort(vec.begin(), vec.end(), [](const string &str1, const string &str2) -> bool {
                 string separator = " - ";
                 size_t first, second;
@@ -99,8 +99,13 @@ void sortPasswords(vector<string> vec) {
 /// \param categories Vector of categories
 void addPassword(const int &key, const string &filePath, vector<string> &vec, vector<string> &passwords,
                  const vector<string> &categories) {
+    if (categories.empty()) {
+        println("There are no categories to assign a password to.");
+        return;
+    }
+
     string name;
-    println("Enter the name of the entry:");
+    println("Name of the entry:");
     getline(cin, name);
     if (cancelInput(name))
         return;
@@ -127,7 +132,7 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
             int passwordLength;
             bool includeUpper, includeSpecial;
             string in;
-            println("Enter length of the password [8-20]:");
+            println("Enter the length of the password [8-20]:");
             for (bool invalidInput = true, isNumber = true; invalidInput;) {
                 getline(cin, in);
                 if (cancelInput(in))
@@ -182,7 +187,7 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
                 }
             }
             password = getRandomPassword(passwordLength, includeUpper, includeSpecial);
-            println("Created password: \"{}\".", password);
+            println("Created password: \'{}\'.", password);
         }
         else {
             println("Invalid input.");
@@ -210,7 +215,7 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
 
     string separator = " - ";
     string entry = name + separator + password + separator + category;
-    cout << "Password \"" << entry << "\" was successfully added." << endl;
+    cout << "Entry \"" << entry << "\" was successfully added." << endl;
     vec.push_back(entry);
     string encoded_entry;
     for (char c: entry)
@@ -229,9 +234,14 @@ void addPassword(const int &key, const string &filePath, vector<string> &vec, ve
 /// \param categories Vector of categories
 void editPassword(const int &key, const string &filePath, vector<string> &vec, vector<string> &passwords,
                   const vector<string> &categories) {
+    if (passwords.empty()) {
+        println("There are no password to edit.");
+        return;
+    }
+
     string separator = " - ";
     string inPassword, toChange;
-    println("Enter the password you want to change:");
+    println("Enter the password you want to edit:");
     for (bool invalidPassword = true; invalidPassword;) {
         getline(cin, inPassword);
         if (cancelInput(inPassword))
@@ -250,16 +260,16 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
             println("There is no such password.");
     }
     string change;
-    println("What do you want to change? [Name/Password/Category]");
+    println("What do you want to edit? [name/password/category]");
     for (bool invalidInput = true; invalidInput;) {
         invalidInput = false;
         getline(cin, change);
         if (cancelInput(change))
             return;
 
-        if (!strcasecmp(change.c_str(), "Name")) {
+        if (!strcasecmp(change.c_str(), "name")) {
             string newName;
-            println("Enter new name:");
+            println("Enter new entry name:");
             getline(cin, newName);
             if (cancelInput(newName))
                 return;
@@ -277,9 +287,9 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
                     str += category;
                 }
             }
-            println("Name was successfully changed to \"{}\".", newName);
+            println("Entry name was successfully changed to \"{}\".", newName);
         }
-        else if (!strcasecmp(change.c_str(), "Password")) {
+        else if (!strcasecmp(change.c_str(), "password")) {
             string newPassword;
             println("Enter new password:");
             getline(cin, newPassword);
@@ -369,8 +379,13 @@ void editPassword(const int &key, const string &filePath, vector<string> &vec, v
 /// \param vec Vector of entries
 /// \param passwords Vector of passwords
 void removePassword(const int &key, const string &filePath, vector<string> &vec, vector<string> &passwords) {
+    if (passwords.empty()) {
+        println("There are no passwords to remove.");
+        return;
+    }
+
     string inPassword;
-    println("Enter the password you want to delete:");
+    println("Enter the password you want to remove:");
     getline(cin, inPassword);
     if (cancelInput(inPassword))
         return;
@@ -385,11 +400,11 @@ void removePassword(const int &key, const string &filePath, vector<string> &vec,
             toDelete.push_back(password);
     }
     if (toDelete.empty()) {
-        println("There is no such password to delete.");
+        println("There is no such password to remove.");
         return;
     }
     if (toDelete.size() > 1)
-        println("Warning: There are several passwords being deleted!");
+        println("Warning: There are several passwords being removed!");
     for (string pass: toDelete) {
         erase_if(vec, [&](const string &entry) -> bool {
             size_t first = entry.find(separator);
@@ -422,16 +437,16 @@ void removePassword(const int &key, const string &filePath, vector<string> &vec,
     }
     file.close();
     if (toDelete.size() > 1)
-        println("Passwords were successfully deleted.");
+        println("Passwords were successfully removed.");
     else
-        println("Password was successfully deleted.");
+        println("Password was successfully removed.");
 }
 
 /// \brief Adds category
 /// \param categories Vector of categories
 void addCategory(vector<string> &categories) {
     string inCategory;
-    println("Enter the name of category:");
+    println("Enter the name of the category:");
     getline(cin, inCategory);
     if (cancelInput(inCategory))
         return;
@@ -442,7 +457,7 @@ void addCategory(vector<string> &categories) {
             return;
         }
     categories.push_back(inCategory);
-    println("Category successfully added.");
+    println("Category successfully created.");
 }
 
 /// \brief Removes category along with the passwords assigned to that category
@@ -453,8 +468,13 @@ void addCategory(vector<string> &categories) {
 /// \param categories Vector of categories
 void removeCategory(const int &key, const string &filePath, vector<string> &vec, vector<string> &passwords,
                     vector<string> &categories) {
+    if (categories.empty()) {
+        println("There are no categories to remove.");
+        return;
+    }
+
     string inCategory;
-    println("Enter the name of the category you would like to delete:");
+    println("Enter the name of the category you want to remove:");
     getline(cin, inCategory);
     if (cancelInput(inCategory))
         return;
@@ -498,5 +518,5 @@ void removeCategory(const int &key, const string &filePath, vector<string> &vec,
         file << encoded_entry << endl;
     }
     file.close();
-    println("Category was successfully deleted.");
+    println("Category was successfully removed.");
 }

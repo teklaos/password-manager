@@ -8,7 +8,7 @@ using fmt::print, fmt::println;
 
 int main() {
     string password;
-    println("Enter the password for the file:");
+    println("Password:");
     getline(cin, password);
 
     int key = 0;
@@ -22,7 +22,7 @@ int main() {
     }
 
     string filePath;
-    println("Enter the name of the source file:");
+    println("Path to source file:");
     getline(cin, filePath);
 
     printTime(filePath);
@@ -31,38 +31,38 @@ int main() {
     vector<string> categories = getCategoriesVector(vec);
 
     string input;
-    println("Enter a command (enter 'help' for a list of commands):");
+    println("Enter \'help\' for a list of built-in commands.");
     for (bool isRunning = true; isRunning;) {
         print("->");
         getline(cin, input);
-        if (!strcasecmp(input.c_str(), "Exit"))
+        if (!strcasecmp(input.c_str(), "exit"))
             isRunning = false;
 
-        else if (!strcasecmp(input.c_str(), "Search pass"))
+        else if (!strcasecmp(input.c_str(), "search pass"))
             searchPasswords(vec);
 
-        else if (!strcasecmp(input.c_str(), "Sort pass"))
+        else if (!strcasecmp(input.c_str(), "sort pass"))
             sortPasswords(vec);
 
-        else if (!strcasecmp(input.c_str(), "Add pass"))
+        else if (!strcasecmp(input.c_str(), "add pass"))
             addPassword(key, filePath, vec, passwords, categories);
 
-        else if (!strcasecmp(input.c_str(), "Edit pass"))
+        else if (!strcasecmp(input.c_str(), "edit pass"))
             editPassword(key, filePath, vec, passwords, categories);
 
-        else if (!strcasecmp(input.c_str(), "Rm pass"))
+        else if (!strcasecmp(input.c_str(), "rm pass"))
             removePassword(key, filePath, vec, passwords);
 
-        else if (!strcasecmp(input.c_str(), "Add category"))
+        else if (!strcasecmp(input.c_str(), "add ctg"))
             addCategory(categories);
 
-        else if (!strcasecmp(input.c_str(), "Rm category"))
+        else if (!strcasecmp(input.c_str(), "rm ctg"))
             removeCategory(key, filePath, vec, passwords, categories);
 
-        else if (!strcasecmp(input.c_str(), "Help"))
+        else if (!strcasecmp(input.c_str(), "help"))
             printList();
 
         else if (!input.empty())
-            println("Enter \'Help\' for a list of built-in commands");
+            println("Enter \'help\' for a list of built-in commands.");
     }
 }
